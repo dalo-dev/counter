@@ -2,30 +2,25 @@
 
 //* ELEMENTS
 const counterElm = document.getElementById("counter");
-const decreaseBtnElm = document.getElementById("btn-decrease");
-const resetBtnElm = document.getElementById("btn-reset");
-const increaseBtnElm = document.getElementById("btn-increase");
+const btnsContainerElm = document.querySelector(".main__buttons");
 
 //* FEATURES
-const increaseCounter = function () {
-  count++;
+const counts = function (e) {
+  const selectedBtn = e.target;
+  if (selectedBtn.classList.contains("decrease")) count--;
+  else if (selectedBtn.classList.contains("reset")) count = 0;
+  else if (selectedBtn.classList.contains("increase")) count++;
+
   counterElm.innerText = count;
+  changeCounterColor();
 };
 
-const decreaseCounter = function () {
-  count--;
-  counterElm.innerText = count;
-};
-
-const resetCounter = function () {
-  count = 0;
-  counterElm.innerText = count;
+const changeCounterColor = function () {
+  counterElm.style.color = count > 0 ? "green" : count < 0 ? "red" : "black";
 };
 
 //* EVENTS
-decreaseBtnElm.addEventListener("click", decreaseCounter);
-resetBtnElm.addEventListener("click", resetCounter);
-increaseBtnElm.addEventListener("click", increaseCounter);
+btnsContainerElm.addEventListener("click", counts);
 
 //* MAIN
 let count = 0;
